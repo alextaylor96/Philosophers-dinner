@@ -4,9 +4,7 @@ the user enters a number of philosphers each of whom run a dine method on there 
 if one of the forks is already in use the philosopher with wait until it is free and then take it to use.
 */
 
-#include <iostream>
 #include <thread>
-#include <mutex>
 #include <vector>
 #include "Philosopher.h"
 

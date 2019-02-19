@@ -1,3 +1,4 @@
+//philosopher which attend dinner
 #include <string>
 #include <random>
 #include "Fork.h"
@@ -27,46 +28,13 @@ public:
 	Philosopher(Philosopher&&) = default;
 	Philosopher& operator=(const Philosopher&) = default;
 
-	void dine()
-	{
-		//wait for table to be ready
-		while (!table.ready);
+	//philosopher attends the dinner and thinks/eats
+	void dine();
 
-		//once ready continue until no longer ready
-		while (table.ready){
-			think();
-			eat();
-		}
-	}
+private:
+	void eat();
 
-	void eat()
-	{
-		//keep trying to get forks
-		while (!leftFork.pickUp()) {/* table.print("philosopher: " + std::to_string(id) + " waiting on Fork: " + std::to_string(leftFork.forkId));*/ }
-		while(!rightFork.pickUp()) {/* table.print("philosopher: " + std::to_string(id) + " waiting on Fork: " + std::to_string(rightFork.forkId));*/ }
-
-		table.print("Philosopher: " + std::to_string(id) + " started eating with Forks: " + std::to_string(leftFork.forkId)
-			+ "," + std::to_string(rightFork.forkId));
-
-		//eat for a bit
-		static thread_local std::uniform_int_distribution<> dist(1, 6);
-		std::this_thread::sleep_for(std::chrono::milliseconds(dist(rng) * 50));
-
-		//release both forks
-		leftFork.putDown();
-		rightFork.putDown();
-		table.print("Philosopher: " + std::to_string(id) + " finished eating.");
-	}
-
-	void think()
-	{
-		table.print("Philosopher: " + std::to_string(id) + " is thinking.");
-		//think a bit
-		static thread_local std::uniform_int_distribution<> wait(1, 6);
-		std::this_thread::sleep_for(std::chrono::milliseconds(wait(rng) * 150));
-
-		table.print("Philosopher: " + std::to_string(id) + " stoped thinking.");
-	}
+	void think();
 };
 
 

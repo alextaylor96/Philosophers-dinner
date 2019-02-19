@@ -1,5 +1,5 @@
+//Table used in dinner, contains all the forks
 #include <iostream>
-#include <mutex>
 #include "Fork.h"
 
 #pragma once
